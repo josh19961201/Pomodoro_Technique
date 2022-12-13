@@ -46,9 +46,32 @@ export const useListStore = defineStore({
     },
     getItemIndexById (id) {
       return this.items.findIndex(item => item.id === id)
+    },
+    start () {
+      this.currentItem = this.break ? '休息一下' : this.items.shift().name // 取陣列第一個值
+    },
+    countdown () {
+      this.timeleft--
+    },
+    finish () {
+      if (!this.break) {
+        this.finishedItems.push({
+          name: this.currentItem,
+          id: this.id++
+        })
+      }
+      this.currentItem = ''
+      if (this.items.length > 0) {
+        this.break = !this.break
+      }
+      this.timeleft = this.break ? timeBreak : time
+    },
+    delFinishedItem (id) {
+      const i = this.finishedItems.findIndex(item => item.id === id)
+      this.finishedItems.splice(i, 1)
     }
   },
-  // 這裡放需要 function 計算後產生的資料
-  getters: {
+  persist: {
+    key: 'pomodoro-list'
   }
 })
