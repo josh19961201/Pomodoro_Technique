@@ -2,6 +2,7 @@
 import vue from '@vitejs/plugin-vue'
 import vuetify from 'vite-plugin-vuetify'
 import { VitePWA } from 'vite-plugin-pwa'
+import ViteRadar from 'vite-plugin-radar'
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -15,6 +16,12 @@ export default defineConfig({
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
       autoImport: true
+    }),
+    ViteRadar({
+      // Google Analytics tag injection
+      analytics: {
+        id: 'G-57VKZ0JBNL'
+      }
     }),
     VitePWA({
       // 設定快取自動更新
@@ -37,13 +44,87 @@ export default defineConfig({
         // 工具列顏色
         theme_color: '#BF1A2F',
         // 手機開啟時 icon 後面的背景色
-        background_color: '#BF1A2F',
+        background_color: '#F3F9D2',
         // PWA 顯示的路徑範圍
         scope: './',
         // PWA 開啟的網址
         start_url: './',
         // 顯示模式，只顯示工具列
-        display: 'standalone'
+        display: 'standalone',
+        icons: [
+          {
+            src: './img/icons/android-chrome-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/android-chrome-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/android-chrome-maskable-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: './img/icons/android-chrome-maskable-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: './img/icons/apple-touch-icon-60x60.png',
+            sizes: '60x60',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/apple-touch-icon-76x76.png',
+            sizes: '76x76',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/apple-touch-icon-120x120.png',
+            sizes: '120x120',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/apple-touch-icon-152x152.png',
+            sizes: '152x152',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/apple-touch-icon-180x180.png',
+            sizes: '180x180',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/apple-touch-icon.png',
+            sizes: '180x180',
+            type: 'image/png'
+          },
+          {
+            src: './favicon-16x16.png',
+            sizes: '16x16',
+            type: 'image/png'
+          },
+          {
+            src: './favicon-32x32.png',
+            sizes: '32x32',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/msapplication-icon-144x144.png',
+            sizes: '144x144',
+            type: 'image/png'
+          },
+          {
+            src: './img/icons/mstile-150x150.png',
+            sizes: '150x150',
+            type: 'image/png'
+          }
+        ]
       }
     })
   ],
