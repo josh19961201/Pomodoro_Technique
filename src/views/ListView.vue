@@ -1,16 +1,12 @@
 <template lang="pug">
 v-row#list
-  v-col(cols="12")
-    h1.text-center 待辦事項
-  v-col(cols="12")
+  v-col(cols="12" class="mb-5")
     v-text-field(ref="input" v-model="newItem" label="新增事項" :rules="[rules.required,rules.length]" @keydown.enter=" onInputSubmit")
       template(#append)
         v-btn(icon="mdi-plus" variant="text" @click=" onInputSubmit")
+  v-col(cols="12" )
+    h1.text-center(class="my-3") 未完成事項
     v-table
-      thead
-        tr
-          th 名稱
-          th 操作
       tbody
         tr(v-if="items.length === 0")
           td.text-center(colspan="2") 沒有事項
@@ -20,27 +16,23 @@ v-row#list
             span(v-else) {{ item.name }}
           td
             span(v-if="item.edit")
-              v-btn(icon="mdi-check" variant="text" color="#006400" @click="confirmEditItem(item.id)")
-              v-btn(icon="mdi-undo" variant="text" color="#B22222" @click="undoEditItem(item.id)")
+              v-btn(icon="mdi-check" variant="text" color="secondary" @click="confirmEditItem(item.id)")
+              v-btn(icon="mdi-undo" variant="text" color="primary" @click="undoEditItem(item.id)")
             span(v-else)
-              v-btn(icon="mdi-pencil" variant="text" color="#006400" @click="editItem(item.id)")
-              v-btn(icon="mdi-delete" variant="text" color="#B22222" @click="delItem(item.id)")
-  v-divider
+              v-btn(icon="mdi-pencil" variant="text" color="secondary" @click="editItem(item.id)")
+              v-btn(icon="mdi-delete" variant="text" color="primary" @click="delItem(item.id)")
+  v-divider(class="my-5")
   v-col(cols="12")
-    h1.text-center 已完成事項
-  v-col(cols="12")
+    h1.text-center(class="my-3") 已完成事項
+  v-col(cols="12" class="mb-5")
     v-table
-      thead
-        tr
-          th 名稱
-          th 操作
       tbody
         tr(v-if="finishedItems.length === 0")
           td.text-center(colspan="2") 沒有事項
         tr(v-for="item in finishedItems" v-else :key="item.id" ref="editInputs")
           td {{ item.name }}
           td
-            v-btn(icon="mdi-delete" variant="text" color="#B22222" @click="delFinishedItem(item.id)")
+            v-btn(icon="mdi-delete" variant="text" color="primary" @click="delFinishedItem(item.id)")
 </template>
 
 <script setup>
@@ -49,7 +41,14 @@ import { storeToRefs } from 'pinia'
 import { useListStore } from '@/stores/list'
 
 const list = useListStore()
-const { addItem, editItem, delItem, confirmEditItem, undoEditItem, delFinishedItem } = list
+const {
+  addItem,
+  editItem,
+  delItem,
+  confirmEditItem,
+  undoEditItem,
+  delFinishedItem
+} = list
 const { items, finishedItems } = storeToRefs(list)
 
 const newItem = ref('')
@@ -73,3 +72,21 @@ const onInputSubmit = async () => {
   input.value.reset()
 }
 </script>
+
+<style lang="scss">
+#list{
+  .v-input__append{
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+}
+td:nth-child(1){
+  width: 70%;
+}
+td:nth-child(2){
+  text-align: right !important;
+  width: 30%;
+}
+}
+
+</style>

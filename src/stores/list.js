@@ -11,8 +11,9 @@ export const useListStore = defineStore({
       finishedItems: [],
       currentItem: '',
       id: 1,
-      break: false, // 是否為休息時間
-      timeleft: time// 剩餘時間
+      breakNow: false, // 是否為休息時間
+      timeleft: time, // 剩餘時間
+      timeTotal: 0
     }
   },
   // 這裡放所有修改 state 的 function
@@ -48,13 +49,14 @@ export const useListStore = defineStore({
       return this.items.findIndex(item => item.id === id)
     },
     start () {
-      this.currentItem = this.break ? '休息一下' : this.items.shift().name // 取陣列第一個值
+      this.currentItem = this.breakNow ? '休息時間' : this.items.shift().name // 取陣列第一個值
+      this.timeTotal = this.breakNow ? timeBreak : time
     },
     countdown () {
       this.timeleft--
     },
     finish () {
-      if (!this.break) {
+      if (!this.breakNow) {
         this.finishedItems.push({
           name: this.currentItem,
           id: this.id++
@@ -62,9 +64,9 @@ export const useListStore = defineStore({
       }
       this.currentItem = ''
       if (this.items.length > 0) {
-        this.break = !this.break
+        this.breakNow = !this.breakNow
       }
-      this.timeleft = this.break ? timeBreak : time
+      this.timeleft = this.breakNow ? timeBreak : time
     },
     delFinishedItem (id) {
       const i = this.finishedItems.findIndex(item => item.id === id)

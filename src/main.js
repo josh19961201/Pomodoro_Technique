@@ -10,7 +10,7 @@ import App from './App.vue'
 // Composables
 import { createApp } from 'vue'
 
-// Plugins
+// Plugins 沒有檔名預設會找plugins資料夾內的index
 import { registerPlugins } from '@/plugins'
 
 // PWA

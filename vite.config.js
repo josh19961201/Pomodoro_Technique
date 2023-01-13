@@ -44,7 +44,7 @@ export default defineConfig({
         // 工具列顏色
         theme_color: '#BF1A2F',
         // 手機開啟時 icon 後面的背景色
-        background_color: '#F3F9D2',
+        background_color: '#FFFFFF',
         // PWA 顯示的路徑範圍
         scope: './',
         // PWA 開啟的網址
